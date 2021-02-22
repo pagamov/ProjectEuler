@@ -1,10 +1,15 @@
 # PRIME NUMBERS
 def prime(n):
+    if n == 1:
+        return False
     for i in range(2, n):
-        if n % i==0:
+        if n % i == 0:
             return False
     return True
-
+def tentobin(n):
+    if n==0: return ''
+    else:
+        return tentobin(n/2) + str(n%2)
 def set_primes(up):
     piv = []
     for i in range(2,up+1):

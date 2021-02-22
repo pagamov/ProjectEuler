@@ -1,33 +1,34 @@
 from lib import eratosthenes,prime
 
-def truncatable(n):
-    numbers = [n]
-    n = str(n)
-    for i in range(len(n)-1):
-        numbers.append(int(n[i+1:]))
-    for i in range(len(n)-1):
-        numbers.append(int(n[:len(n)-i-1]))
-    return numbers
 
+def pandig(n): # n an string
+    h = set()
+    for i in n:
+        if i in h:
+            return False
+        else:
+            h.add(i)
+    if len(h) == 9 and '0' not in h:
+        return True
+    return False
 
-p = eratosthenes(10**6)
-work = p[5:]
-res = []
-i = 0
-while len(res) != 11:
-    piv = truncatable(work[i])
-    f = True
-    for mb in piv[1:]:
-        if mb not in p:
-            f = False
-            break
-    if f:
-        print "\nfind: ", piv
-        res.append(work[i])
-    print "\r",work[i],
-    i+=1
+# print pandig(str(123456789))
+# exit()
 
-ans = 0
-for an in res:
-    ans += an
-print "ans: ", ans
+m = -1
+r = 2
+while True:
+    piv = ""
+    i = [1]
+    while len(piv) < 9:
+        piv += str(r*i[len(i)-1])
+        i.append(i[len(i)-1]+1)
+    print "\r", r, piv, i,
+    if len(i) == 2 and len(piv) > 9:
+        print "ans: ", m
+        exit()
+    if pandig(piv):
+        print "\n", piv,r, i
+        if int(piv) > m:
+            m = int(piv)
+    r+=1

@@ -1,34 +1,29 @@
 from lib import eratosthenes,prime
+from time import time
 
+def ans_trig(p):
+    ans = []
+    for a in range(1,p):
+        for b in range(1,p):
+            c = p - a - b
+            print "\r",p,a,b,c,
+            if c > 0:
+                if a*a+b*b==c*c:
+                    if sorted([a,b,c]) not in ans:
+                        ans.append(sorted([a,b,c]))
+    return ans
 
-def pandig(n): # n an string
-    h = set()
-    for i in n:
-        if i in h:
-            return False
-        else:
-            h.add(i)
-    if len(h) == 9 and '0' not in h:
-        return True
-    return False
-
-# print pandig(str(123456789))
+# print ans_trig(0)
 # exit()
-
 m = -1
-r = 2
-while True:
-    piv = ""
-    i = [1]
-    while len(piv) < 9:
-        piv += str(r*i[len(i)-1])
-        i.append(i[len(i)-1]+1)
-    print "\r", r, piv, i,
-    if len(i) == 2 and len(piv) > 9:
-        print "ans: ", m
-        exit()
-    if pandig(piv):
-        print "\n", piv,r, i
-        if int(piv) > m:
-            m = int(piv)
-    r+=1
+p_m = -1
+t = time()
+for p in range(1000+1):
+    # print "\r",p,
+    a = ans_trig(p)
+    if len(a) > m:
+        print "\n",p, a
+        m = len(a)
+        p_m = p
+print time() - t, " sec"
+print "\nans: ", p_m

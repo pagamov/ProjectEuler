@@ -75,3 +75,28 @@ def eratosthenes(n):
             for candidate in range(2 * number, n+1, number):
                 numbers[candidate-2] = 0
     return list(filter(lambda x: x != 0, numbers))
+
+
+class Pandig:
+    # class for making pan dig numbers in recursive way
+    # generate and return list of all dig
+    def __init__(self, number, ban):
+        self.number = []
+        for i in range(1,number + 1):
+            if i not in ban:
+                self.number.append(i)
+        self.child = []
+        for i in self.number:
+            self.child.append(Pan(number, ban + [i]))
+    def get_n(self):
+        res = []
+        if len(self.number) == 0:
+            return ['']
+        for i in range(len(self.number)):
+            low = self.child[i].get_n()
+            for j in low:
+                res.append(str(self.number[i]) + j)
+        return res
+    def get_number(self):
+        r = list(map(int, self.get_n()))
+        return r

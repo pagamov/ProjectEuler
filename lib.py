@@ -2,6 +2,8 @@
 def prime(n):
     if n == 1:
         return False
+    if n % 2 == 0 or n % 3 == 0 or n % 5 == 0:
+        return False
     for i in range(2, n):
         if n % i == 0:
             return False
@@ -18,7 +20,7 @@ def set_primes(up):
     to_rem = []
     start = 0
     while piv[start]**2 < up+1:
-        print len(piv)
+        print(len(piv))
         for i in range(start + 1, len(piv)):
             if piv[i] % piv[start] == 0:
                 to_rem.append(piv[i])
@@ -39,7 +41,7 @@ def get_primes():
     for line in f:
         a = list(map(int,line.split()))
         res[a[0]] = a[1]
-        print a[0], a[1]
+        print(a[0], a[1])
     f.close()
     return res
 

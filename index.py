@@ -1,20 +1,29 @@
 from lib import eratosthenes,prime
 from time import time
 
-def champernowne(n):
-    i = 1
-    s = 1
-    s_ = str(s)
-    while True:
-        ip = 0
-        #print("work ",s_)
-        for c in s_:
-            #print(c)
-            if i == n:
-                return int(c)
-            i+=1
-        s+=1
-        s_=str(s)
+p = eratosthenes(987654321)
+print "era done"
+p = p[::-1]
+
+def pandit(n):
+    w = str(n)
+    g = []
+    for c in w:
+        if c == '0':
+            return False
+        if c not in g:
+            g.append(c)
+        else:
+            return False
+    if len(g) == 9:
+        print n, g
+        return True
+    else:
+        return False
+
+pandit(987654321)
+exit()
+
 
 res = []
 for i in range(7):

@@ -1,52 +1,46 @@
 #include <iostream>
 #include <ctime>
 
-long long P(long long x) {
-    return x * (3*x-1) / 2;
-}
-
 double diffclock(clock_t clock1,clock_t clock2) {
     double diffticks=clock2-clock1;
     double diffms=(diffticks)/(CLOCKS_PER_SEC);
     return diffms;
 }
 
-int main() {
-    long long i = 286;
-    clock_t start = clock();
-    while (true) {
-        // std::cout << "\r" << b << ' ' << P(b) << std::endl;
-        long long Ti = i*(i+1)/2;
-
-        for (long long n=1;n<i;n++) {
-            long long Hn = n*(2*n-1);
-            if (Hn == Ti) {
-                break;
-            } else if (Hn > Ti) {
-                goto next;
-            }
+bool prime(long long i) {
+    for (long long n = 2; n < i; n++) {
+        if (i % n == 0) {
+            return false;
         }
-
-        for (long long n=1;n<i;n++) {
-            long long Pn = n*(3*n-1)/2;
-            if (Pn == Ti) {
-                break;
-            } else if (Pn > Ti) {
-                goto next;
-            }
-        }
-
-        std::cout << "Ti = " << Ti << std::endl;
-        goto ext;
-
-        next:
-        i += 1;
     }
+    return true;
+}
 
+int main() {
+    clock_t start = clock();
+
+    long long odd = 9;
+
+    while (true) {
+        if (odd % 2 != 0 && !prime(odd)) {
+            for (long long i = 2; i < odd; i++) {
+                if (prime(i)) {
+                    for (long long j = 1; j < odd; j++) {
+                        if (odd == i + 2 * j * j) {
+                            goto next;
+                        }
+                    }
+                }
+            }
+
+            std::cout << "res = " << odd << std::endl;
+            goto ext;
+        }
+        next:
+        odd += 2;
+    }
     ext:
     clock_t end = clock();
     std::cout << diffclock(start,end)<<std::endl;
     return 0;
-
-    // 1533776805
 }

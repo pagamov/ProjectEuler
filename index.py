@@ -2,34 +2,54 @@ from lib import eratosthenes, prime, Pandig
 from time import time
 
 
-def sep(n):
+def P(x):
+    return x * (3*x-1)/2
+def form(n):
     res = []
-    while n != 0:
-        res.append(n%10)
-        n = n//10
-    return res[::-1]
+    for i in range(1,n):
+        res.append([i, P(i)])
+    return res
 
-def count(n):
-    if len(n) != 10:
-        return False
-    r = [2,3,5,7,11,13,17]
-    for i in range(1, 8):
-        if (n[i]*100+n[i+1]*10+n[i+2]) % r[i-1] != 0:
-            return False
-    return True
-t = time()
-pan = Pandig(9)
-print('setup', time()-t)
+up = 1000
+base = form(up)
 
-t = time()
-p = pan.get_number()
-print('get number', time()-t)
 
-t = time()
-res = 0
-for i in range(len(p)):
-    print('\r', i/len(p)*1000//10,'%',end='')
-    if count(sep(p[i])):
-        res += p[i]
-print('done', time()-t)
-print('res=',res)
+b = 1
+while True:
+    print('\r',b,end='')
+    for i in range(1, b):
+        for j in range(i+1, b):
+
+
+            if P(i) + P(j) == P(b):
+                for k in range(1, i):
+                    if P(k) + P(i) == P(j):
+                        print('\nD = ', P(k))
+                        print('b = ', b)
+    b+=1
+
+
+def is_P(x):
+    i = 1
+    while P(i) <= x:
+        if P(i) == x:
+            return True
+        i+=1
+    return False
+
+# print(is_P(35))
+# exit()
+
+m = 10**100
+res = []
+for i in range(1,up):
+    for j in range(i+1,up):
+        print('\r',i,j,end='')
+        if is_P(P(i)+P(j)) and is_P(abs(P(j)-P(i))):
+            print('find',i,j,abs(P(j)-P(i)))
+            if abs(P(j)-P(i)) < m:
+                m = abs(P(j)-P(i))
+                res.append([i,j])
+
+print('\n',res)
+print(m)

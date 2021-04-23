@@ -4,7 +4,7 @@ def prime(n):
         return False
     if n % 2 == 0 or n % 3 == 0 or n % 5 == 0:
         return False
-    for i in range(2, n):
+    for i in range(6, n):
         if n % i == 0:
             return False
     return True

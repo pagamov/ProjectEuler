@@ -1,34 +1,75 @@
 from lib import eratosthenes, prime, Pandig, pandig
 from time import time
 
-primes = []
-for i in range(1000,10000):
-    if prime(i):
-        primes.append(i)
-        
-r = []
-for i in primes:
-    a = pandig(i)
-    rr = []
-    for j in a:
-        if len(str(j)) == 4 and j not in rr:
-            rr.append(j)
-    r.append(rr)
-
-rres = []
-for i in r:
+# Python3 program for the above approach
+ 
+# Function to check if a
+# number is prime or not
+def isprm(n):
+     
+    # Base Case
+    if (n <= 1):
+        return 0
+    if (n <= 3):
+        return 1
+    if (n % 2 == 0 or n % 3 == 0):
+        return 0
+ 
+    # Iterate till [5, sqrt(N)] to
+    # detect primality of numbers
+    i = 5
+    while (i * i <= n):
+ 
+        # If N is divisible by i
+        # or i + 2
+        if (n % i == 0 or
+            n % (i + 2) == 0):
+            return 0
+         
+        i = i + 6
+     
+    # Return 1 if N is prime
+    return 1
+ 
+# Function to count the prime numbers
+# which can be expressed as sum of
+# consecutive prime numbers
+def countprime(n):
+     
+    # Initialize count as 0
     count = 0
-    res = []
-    for num in sorted(i):
-        if prime(num):
+ 
+    # Stores prime numbers
+    primevector = []
+ 
+    for i in range(2, n + 1):
+ 
+        # If i is prime
+        if (isprm(i) == 1):
+            primevector.append(i)
+         
+    # Initialize the sum
+    sum = primevector[0]
+ 
+    # Find all required primes upto N
+    for i in range(1, len(primevector)):
+ 
+        # Add it to the sum
+        sum += primevector[i]
+        if (sum > n):
+            break
+        if (isprm(sum) == 1):
             count += 1
-            res.append(num)
-    if count >= 3:
-        rres.append(res)
-
-for i in rres:
-    for j in range(0,len(i)):
-        for k in range(j+1,len(i)):
-            if i[k] + (i[k] - i[j]) in i:
-                print(i[j],i[k],i[k] + (i[k] - i[j]))
-    # print(i)
+ 
+    # Return the final count
+    return count
+ 
+# Driver Code
+ 
+# Given number N
+N = 45
+ 
+# Function call
+print(countprime(N))
+ 
+# This code is contributed by code_hunt

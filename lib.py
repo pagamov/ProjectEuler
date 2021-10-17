@@ -93,3 +93,17 @@ class Pandig:
     def get_number(self):
         r = list(map(int, self.get_n()))
         return r
+        
+def pandig(n):
+    # make all pandig numbers from n
+    # return list of all of them
+    import itertools
+    res = []
+    for num in list(itertools.permutations(str(n))):
+        piv = ''
+        for d in num:
+            piv += d
+        res.append(int(piv))
+    return res
+    
+    

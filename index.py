@@ -1,17 +1,18 @@
 from lib import eratosthenes, prime, Pandig, pandig
 from time import time
 
+def chain(n):
+    res = [n]
+    while True:
+        piv = sum(list(map(lambda x: int(x)**2,[x for x in str(res[-1])])))
+        if piv == 89:
+            return True
+        elif piv == 1:
+            return False
+        res.append(piv)
 
-def fac(x):
-    if x == 0:
-        return 1
-    if x == 1:
-        return 1
-    return fac(x-1) * x
-
-i = 0
-for n in range(1, 101):
-    for r in range(1, n+1):
-        if fac(n) / (fac(r)*fac(n-r)) > 1000000:
-            i += 1
-print(i)
+r = []
+for i in range(2, 10000000+1):
+    if chain(i):
+        r.append(i)
+print(len(r))

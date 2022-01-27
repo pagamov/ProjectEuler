@@ -1,92 +1,14 @@
 from lib import eratosthenes, prime, Pandig, pandig
 from time import time
 
-<<<<<<< HEAD
 
-def t(n, p):
-    piv = n**p
-    if len(str(piv)) == p:
-        return True
-    return False
+def f(a,b):
+    return sum(list(map(int, [x for x in str(a**b)])))
 
-g = 0
-for n in range(1,1000):
-    for p in range(1,1000):
-        if t(n,p):
-            g += 1
-
-print(g)
-=======
-# Python3 program for the above approach
- 
-# Function to check if a
-# number is prime or not
-def isprm(n):
-     
-    # Base Case
-    if (n <= 1):
-        return 0
-    if (n <= 3):
-        return 1
-    if (n % 2 == 0 or n % 3 == 0):
-        return 0
- 
-    # Iterate till [5, sqrt(N)] to
-    # detect primality of numbers
-    i = 5
-    while (i * i <= n):
- 
-        # If N is divisible by i
-        # or i + 2
-        if (n % i == 0 or
-            n % (i + 2) == 0):
-            return 0
-         
-        i = i + 6
-     
-    # Return 1 if N is prime
-    return 1
- 
-# Function to count the prime numbers
-# which can be expressed as sum of
-# consecutive prime numbers
-def countprime(n):
-     
-    # Initialize count as 0
-    count = 0
- 
-    # Stores prime numbers
-    primevector = []
- 
-    for i in range(2, n + 1):
- 
-        # If i is prime
-        if (isprm(i) == 1):
-            primevector.append(i)
-         
-    # Initialize the sum
-    sum = primevector[0]
- 
-    # Find all required primes upto N
-    for i in range(1, len(primevector)):
- 
-        # Add it to the sum
-        sum += primevector[i]
-        if (sum > n):
-            break
-        if (isprm(sum) == 1):
-            count += 1
- 
-    # Return the final count
-    return count
- 
-# Driver Code
- 
-# Given number N
-N = 45
- 
-# Function call
-print(countprime(N))
- 
-# This code is contributed by code_hunt
->>>>>>> 60e872f1d534687c2fb1b2d2fe83d17d90bfc8b7
+print(f(2,5))
+m = 0
+for a in range(100):
+    for b in range(100):
+        if f(a,b) > m:
+            m = f(a,b)
+print(m)
